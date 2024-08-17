@@ -7,6 +7,10 @@ public class Player {
     private String name;
     private ArrayList<Integer>pair = new ArrayList<>();
 
+    public char[][] getGrid() {
+        return this.grid;
+    }
+
     public void setGrid(char[][] grid) {
         this.grid = grid;
     }
@@ -19,9 +23,7 @@ public class Player {
         this.name = name;
     }
 
-    public char[][] getGrid() {
-        return grid;
-    }
+
 
     public ArrayList<Integer> getPair() {
         return pair;
