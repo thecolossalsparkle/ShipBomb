@@ -8,7 +8,6 @@ public class ShipFlow {
         SinglePlayerRules rulessp = new SinglePlayerRules();
         MultiPlayerRules rulesmp = new MultiPlayerRules();
         Scanner scanner = new Scanner(System.in);
-
         System.out.println(" WELCOME! ");
         gameStartMusic.playSound();
 
@@ -25,12 +24,13 @@ public class ShipFlow {
             if (choice == 1) {//How to restart level 1 along with a fresh board?
             while(true) {
                     rulessp.displayRules();
-                    int i = 1;
-                    boolean flag = true;
+                    int i = 3;
+                    boolean flag = false;
                     System.out.println("WELCOME");
                     System.out.println("Player enter your name");
+                    Scanner obj = new Scanner(System.in);
+                    String name = obj.nextLine();
                     Player player = new Player();
-                    String name = scanner.nextLine();
                     player.setName(name);
 
                     System.out.println("MAY THE WAR BEGIN!!");
@@ -43,33 +43,37 @@ public class ShipFlow {
                     board.display(computer.getGrid());
 
                     CheckWin check = new CheckWin();
-                    while (i <= 20) {
+                    while (i != 0) {
                         ArrayList<Integer> pair;
                         player.setPair();
                         pair = player.getPair();
                         board.reSetGrid(pair, computer.getShips(), computer.getGrid());
                         board.display(computer.getGrid());
-                        i++;
+                        //i++;
                         pair.clear();
                         if (check.checkWin(computer.getGrid())) {
                             System.out.println("You win!");
                             gameEndMusic.playSound();
-                            flag = true;
-                            System.out.println("1 - Restart 2 - Exit");
-                            if (scanner.nextInt() == 1) {
-                                continue;
-                            } else {
-                                break;
-                            }
+                            break;
+                        }
+                        i--;
+                        System.out.println("You have " + i + " chances left!");
+                        if (i == 0 && flag == false) {
+                            System.out.println("You lost:/");
+                            break;
                         }
 
+                    }
 
-                    }
-                    if (i > 20 && flag == false) {
-                        System.out.println("You lost:/");
-                        break;
-                    }
+                System.out.println("1 - Restart 2 - Exit");
+                if (scanner.nextInt() == 1) {
+                    continue;
+                } else {
+                    break;
                 }
+
+                }
+
             }
             else{
                 rulesmp.displayRules();
