@@ -4,6 +4,7 @@ public class DrawBoard {
     HitMusic hit = new HitMusic();
     MissMusic miss = new MissMusic();
     private char[][] grid = new char[11][11];
+    int hitCount = 0;
 
     public char[][] getGrid() {
         return grid;
@@ -43,22 +44,27 @@ public class DrawBoard {
     }
 
     public char[][] reSetGrid(ArrayList<Integer>pair, ArrayList<ArrayList<Integer>> ans, char[][] grid) {//pair = {1, 1}
-        //clear screen
-//        ClearScreen obj = new ClearScreen();
-//        obj.clearScreen();//fix this
 
+        BombMusic bombMusic = new BombMusic();
         int row = pair.get(0);
         int col = pair.get(1);
+
         if(ans.contains(pair)) {
             grid[row+1][col+1] = 'H';
-            hit.playSound();
+            bombMusic.playSound();
+
         }
         else {
             grid[row+1][col+1] = 'M';
             miss.playSound();
         }
+
+
         return grid;
     }
+
+
+
 
 
 }
