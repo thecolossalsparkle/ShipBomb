@@ -17,57 +17,123 @@ public class ShipFlow {
             System.out.println("1.Single Player");
             System.out.println("2.MultiPlayer");
             int choice = scanner.nextInt();
+            boolean restart;
+
+            DrawBoard board = new DrawBoard();
+
 
             if (choice == 1) {
-                rulessp.displayRules();
+            while(true) {
+                    rulessp.displayRules();
+                    int i = 1;
+                    boolean flag = true;
+                    System.out.println("WELCOME");
+                    System.out.println("Player enter your name");
+                    Player player = new Player();
+                    String name = scanner.nextLine();
+                    player.setName(name);
 
-                int i = 1;
-                boolean flag = true;
-                System.out.println("WELCOME");
-                System.out.println("Player enter your name");
-                //Scanner scanner = new Scanner(System.in);
-                Player player = new Player();
-                String name = scanner.nextLine();
-                player.setName(name);
+                    System.out.println("MAY THE WAR BEGIN!!");
 
-                System.out.println("MAY THE WAR BEGIN!!");
+                    Computer computer = new Computer();
+                    computer.setShips();
+                    computer.displayRandomCoord();
 
-                Computer computer = new Computer();
-                computer.setShips();
-                computer.displayRandomCoord();
+                    board.setGrid(computer.getGrid());
+                    board.display(computer.getGrid());
 
-                DrawBoard board = new DrawBoard();
-                board.setGrid(computer.getGrid());
-                board.display(computer.getGrid());
+                    CheckWin check = new CheckWin();
+                    while (i <= 20) {
+                        ArrayList<Integer> pair;
+                        player.setPair();
+                        pair = player.getPair();
+                        board.reSetGrid(pair, computer.getShips(), computer.getGrid());
+                        board.display(computer.getGrid());
+                        i++;
+                        pair.clear();
+                        if (check.checkWin(computer.getGrid())) {
+                            System.out.println("You win!");
+                            flag = true;
+                            System.out.println("1 - Restart 2 - Exit");
+                            if (scanner.nextInt() == 1) {
+                                restart = true;
+                            } else {
+                                break;
+                            }
 
-                CheckWin check = new CheckWin();
-                while (i <= 20) {
-                    ArrayList<Integer> pair;
-                    player.setPair();
-                    pair = player.getPair();
-                    board.reDraw(pair, computer.getShips(), computer.getGrid());
-                    i++;
-                    pair.clear();
-                    if (check.checkWin(computer.getGrid())) {
-                        System.out.println("You win!");
-                        flag = true;
-                        System.out.println("1 - Restart 2 - Exit");
-                        if (scanner.nextInt() == 1) {
-                            i = 1;
-                        } else {
-                            break;
+                            if(restart) {
+                                continue; //check this
+                            }
                         }
+
+
                     }
-
-
-                }
-                if (i > 20 && flag == false) {
-                    System.out.println("You lost:/");
-                    break;
+                    if (i > 20 && flag == false) {
+                        System.out.println("You lost:/");
+                        break;
+                    }
                 }
             }
             else{
                 rulesmp.displayRules();
+                while(true) {
+                    Player player1 = new Player();
+                    Player player2 = new Player();
+
+                    System.out.println("Player 1 enter your name");
+                    String name1 = scanner.nextLine();
+                    player1.setName(name1);
+                    System.out.println( player1.getName() + "Enter your ship locations");
+                    player1.setAns();
+
+
+                    System.out.println("Player 2 enter your name");
+                    String name2 = scanner.nextLine();
+                    player2.setName(name2);
+                    player2.setAns();
+
+                    board.setGrid(player1.getGrid());//fix this
+                    board.setGrid(player2.getGrid());
+                    board.display(player1.getGrid());
+
+                    CheckWin check = new CheckWin();
+                    char[][] player1Grid = new char[11][11];
+                    char[][] player2Grid = new char[11][11];
+                    int i = 1;
+                    while (check.checkWin(player1.getGrid()) == false && check.checkWin(player2.getGrid()) == false) {
+                        if(i % 2 == 1) {
+                            System.out.println("Player 1, your turn!");
+                            player2.setGrid(player2Grid);
+                            board.display(player2.getGrid());
+                            ArrayList<Integer> pair;
+                            player1.setPair();
+                            pair = player1.getPair();
+                            player2Grid = board.reSetGrid(pair, player2.getAns(), player2.getGrid());
+                            board.display(player2Grid);
+
+                        } else {
+                            System.out.println("Player 2, your turn!");
+                            player1.setGrid(player1Grid);
+                            board.display(player1.getGrid());
+                            ArrayList<Integer> pair;
+                            player2.setPair();
+                            pair = player2.getPair();
+                            player1Grid = board.reSetGrid(pair, player1.getAns(), player1.getGrid());
+                            board.display(player1Grid);
+                        }
+
+                        i++;
+                    }
+
+                    System.out.println("You win!!");
+                    System.out.println("1. Restart 2. Exit");
+                    if(scanner.nextInt() == 1) {
+                        continue;
+                    } else {
+                        break;
+                    }
+
+                }
             }
         }
 
