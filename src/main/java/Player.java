@@ -33,12 +33,16 @@ public class Player {
         return ans;
     }
 
-    public void setPair() {
+    public boolean setPair() {
         System.out.println("Enter the coordinates from 0 to 9, Row: , Col: ");
         Scanner scanner = new Scanner(System.in);
         pair.add(scanner.nextInt());
         pair.add(scanner.nextInt());
-
+        if(pair.get(0) >= 10 || pair.get(0) < 0 || pair.get(1) >= 10 || pair.get(1) < 0) {
+            System.out.println("Invalid coordinates, enter again!");
+            return false;
+        }
+        return true;
     }
 
     public void setAns () {
@@ -55,8 +59,24 @@ public class Player {
                 coor.add(coordinate);
             }
 
+
             if(!ans.isEmpty()  && ans.contains(coor)) {
                 System.out.println("No overlap allowed, enter different coordinates!");
+                i--;
+            } else if(coor.get(0) >= 10 || coor.get(1) >= 10) {
+                System.out.println("Please enter numbers from 0 to 9 only, try again!");
+                i--;
+            } else if(i == 0 || i == 3 || i == 6) {
+                ans.add(coor);
+            }
+            else if(!ans.isEmpty() && ans.get(i-1).get(0) != coor.get(0) && ans.get(i-1).get(1) != coor.get(1)) {
+                System.out.println("Your ship should be continuous along the same row or same column!");
+                i--;
+            }  else if(!ans.isEmpty() && (ans.get(i-1).get(0) == coor.get(0)) && (ans.get(i-1).get(1) != coor.get(1) + 1 && ans.get(i-1).get(1) != coor.get(1) - 1)) {
+                System.out.println("Ship coordinates should be continuous");
+                i--;
+            } else if(!ans.isEmpty() && (ans.get(i-1).get(1) == coor.get(1)) && (ans.get(i-1).get(0) != coor.get(0) + 1 && ans.get(i-1).get(0) != coor.get(0) - 1) ) {
+                System.out.println("Ship coordinates should be continuous");
                 i--;
             }
             else {
