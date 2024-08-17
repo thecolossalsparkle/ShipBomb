@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class DrawBoard {
+    HitMusic hit = new HitMusic();
+    MissMusic miss = new MissMusic();
     private char[][] grid = new char[11][11];
 
     public char[][] getGrid() {
@@ -49,9 +51,11 @@ public class DrawBoard {
         int col = pair.get(1);
         if(ans.contains(pair)) {
             grid[row+1][col+1] = 'H';
+            hit.playSound();
         }
         else {
             grid[row+1][col+1] = 'M';
+            miss.playSound();
         }
         return grid;
     }
