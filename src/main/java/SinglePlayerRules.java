@@ -11,5 +11,7 @@ public class SinglePlayerRules {
         System.out.println(" ");
         System.out.println("Best of luck ");
         System.out.println("Game ON!");
+         System.out.println(" ");
+        System.out.println(" ");
     }
 }
