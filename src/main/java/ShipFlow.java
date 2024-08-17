@@ -23,7 +23,7 @@ public class ShipFlow {
 
 
             if (choice == 1) {
-            while(true) {
+                while (true) {
                     rulessp.displayRules();
                     int i = 1;
                     boolean flag = true;
@@ -61,7 +61,7 @@ public class ShipFlow {
                                 break;
                             }
 
-                            if(restart) {
+                            if (restart) {
                                 continue; //check this
                             }
                         }
@@ -73,17 +73,16 @@ public class ShipFlow {
                         break;
                     }
                 }
-            }
-            else{
+            } else {
                 rulesmp.displayRules();
-                while(true) {
+                while (true) {
                     Player player1 = new Player();
                     Player player2 = new Player();
 
                     System.out.println("Player 1 enter your name");
                     String name1 = scanner.nextLine();
                     player1.setName(name1);
-                    System.out.println( player1.getName() + "Enter your ship locations");
+                    System.out.println(player1.getName() + "Enter your ship locations");
                     player1.setAns();
 
 
@@ -101,7 +100,7 @@ public class ShipFlow {
                     char[][] player2Grid = new char[11][11];
                     int i = 1;
                     while (check.checkWin(player1.getGrid()) == false && check.checkWin(player2.getGrid()) == false) {
-                        if(i % 2 == 1) {
+                        if (i % 2 == 1) {
                             System.out.println("Player 1, your turn!");
                             player2.setGrid(player2Grid);
                             board.display(player2.getGrid());
@@ -127,7 +126,7 @@ public class ShipFlow {
 
                     System.out.println("You win!!");
                     System.out.println("1. Restart 2. Exit");
-                    if(scanner.nextInt() == 1) {
+                    if (scanner.nextInt() == 1) {
                         continue;
                     } else {
                         break;
@@ -137,8 +136,8 @@ public class ShipFlow {
             }
         }
 
-
     }
+}
 
 
 
@@ -167,7 +166,6 @@ public class ShipFlow {
 //        }
 
 
-       // gameEndMusic.playSound();
-        //System.out.println("Thanks for Playing see you next time");
-    }
+
+ //   }
 
