@@ -14,5 +14,8 @@ public class FancyThingsTester {
 
         GameEndMusic gameEndMusic = new GameEndMusic();
         gameEndMusic.playSound();
+
+        SadMusic gamesadmusic = new SadMusic();
+        gamesadmusic.playSound();
     }
 }
