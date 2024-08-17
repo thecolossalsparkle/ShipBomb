@@ -14,7 +14,10 @@ public class ShipFlow {
         System.out.println("Menu :");
         System.out.println("1.Single Player");
         System.out.println("2.MultiPlayer");
-        int play = scanner.nextInt();
+        if(scanner.nextInt()==1)
+            rulessp.displayRules();
+        else
+            rulesmp.displayRules();
 
 
 //        if(play == 1) {
