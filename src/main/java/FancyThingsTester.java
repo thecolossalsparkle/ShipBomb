@@ -17,5 +17,8 @@ public class FancyThingsTester {
 
         SadMusic gamesadmusic = new SadMusic();
         gamesadmusic.playSound();
+
+        HappyMusic gamehappymusic = new HappyMusic();
+        gamehappymusic.playSound();
     }
 }
