@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ShipFlow {
@@ -11,13 +12,68 @@ public class ShipFlow {
         System.out.println(" WELCOME! ");
         gameStartMusic.playSound();
 
-        System.out.println("Menu :");
-        System.out.println("1.Single Player");
-        System.out.println("2.MultiPlayer");
-        if(scanner.nextInt()==1)
-            rulessp.displayRules();
-        else
-            rulesmp.displayRules();
+        while (true) {
+            System.out.println("Menu :");
+            System.out.println("1.Single Player");
+            System.out.println("2.MultiPlayer");
+            int choice = scanner.nextInt();
+
+            if (choice == 1) {
+                rulessp.displayRules();
+
+                int i = 1;
+                boolean flag = true;
+                System.out.println("WELCOME");
+                System.out.println("Player enter your name");
+                //Scanner scanner = new Scanner(System.in);
+                Player player = new Player();
+                String name = scanner.nextLine();
+                player.setName(name);
+
+                System.out.println("MAY THE WAR BEGIN!!");
+
+                Computer computer = new Computer();
+                computer.setShips();
+                computer.displayRandomCoord();
+
+                DrawBoard board = new DrawBoard();
+                board.setGrid(computer.getGrid());
+                board.display(computer.getGrid());
+
+                CheckWin check = new CheckWin();
+                while (i <= 20) {
+                    ArrayList<Integer> pair;
+                    player.setPair();
+                    pair = player.getPair();
+                    board.reDraw(pair, computer.getShips(), computer.getGrid());
+                    i++;
+                    pair.clear();
+                    if (check.checkWin(computer.getGrid())) {
+                        System.out.println("You win!");
+                        flag = true;
+                        System.out.println("1 - Restart 2 - Exit");
+                        if (scanner.nextInt() == 1) {
+                            i = 1;
+                        } else {
+                            break;
+                        }
+                    }
+
+
+                }
+                if (i > 20 && flag == false) {
+                    System.out.println("You lost:/");
+                    break;
+                }
+            }
+            else{
+                rulesmp.displayRules();
+            }
+        }
+
+
+    }
+
 
 
 //        if(play == 1) {
@@ -45,7 +101,7 @@ public class ShipFlow {
 //        }
 
 
-        gameEndMusic.playSound();
-        System.out.println("Thanks for Playing see you next time");
+       // gameEndMusic.playSound();
+        //System.out.println("Thanks for Playing see you next time");
     }
-}
+

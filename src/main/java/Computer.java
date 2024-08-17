@@ -3,6 +3,11 @@ import java.util.Random;
 
 public class Computer {
     private ArrayList<ArrayList<Integer>>ships= new ArrayList<>(9);
+    private char[][]grid = new char[11][11];
+
+    public char[][] getGrid() {
+        return grid;
+    }
 
     public void setShips() {
         Random random1 = new Random();
@@ -99,4 +104,3 @@ public class Computer {
 
     }
 }
-
